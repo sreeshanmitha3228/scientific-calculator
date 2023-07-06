@@ -8,6 +8,21 @@ body {
     user-select: none;
     background: #ecf3f1;
 }
+@media (max-width: 768px) {
+            /* Styles for mobile devices */
+            .container {
+                width: 100%;
+            }
+            .row {
+                flex-wrap: wrap;
+            }
+            .btns {
+                flex-direction: column;
+            }
+            .btns .row {
+                width: 100%;
+            }
+        }
 
 
 .container {
