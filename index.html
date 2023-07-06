@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scientific Calculator</title>
+    <link rel="stylesheet" type="text/css"
+        href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="display">
+            <input id="screen" type="text" placeholder="0">
+        </div>
+
+        <div class="btns">
+            <div class="row">
+                <button id="ce" onclick="backspc()">CE</button>
+                <button onclick="fact()">x!</button>
+                <button class="btn">(</button>
+                <button class="btn">)</button>
+                <button class="btn">%</button>
+                <button id="ac" onclick="screen.value=''">AC</button>
+            </div>
+
+            <div class="row">
+                <button onclick="sin()">sin</button>
+                <button onclick="pi()">π</button>
+                <button class="btn">7</button>
+                <button class="btn">8</button>
+                <button class="btn">9</button>
+                <button class="btn">÷</button>
+            </div>
+
+            <div class="row">
+                <button onclick="cos()">cos</button>
+                <button onclick="ln()">ln</button>
+                <button class="btn">4</button>
+                <button class="btn">5</button>
+                <button class="btn">6</button>
+                <button class="btn">×</button>
+            </div>
+
+            <div class="row">
+                <button onclick="tan()">tan</button>
+                <button onclick="sqrt()">√</button>
+                <button class="btn">1</button>
+                <button class="btn">2</button>
+                <button class="btn">3</button>
+                <button class="btn">-</button>
+            </div>
+
+            <div class="row">
+                <button onclick="e()">e</button>
+                <button onclick="pow()">x<span style="position: relative; bottom: .4em; right: .1em;">2</span>
+                </button>
+                <button class="btn">0</button>
+                <button class="btn">.</button>
+                <button id="eval" onclick="screen.value=eval(screen.value)">=</button>
+                <button class="btn">+</button>
+            </div>
+            <div class="row">
+                <button onclick="reci()">1/x</button>
+                <button onclick="power()">x<span style="position: relative; bottom: .4em; right: .1em;">y</span>
+                </button>
+                <button onclick="calculateLogarithm()">log</button>
+                <button onclick="cuberoot()">∛x</button>
+                <button onclick="calculateTenToPowerX()">10<span style="position: relative; bottom: .4em; right: .1em;">x</span></button>
+                <button onclick="calculateYthRoot()"><span onclick="r('apow')" class="scifunc"><sup>y</sup>√x</span></button>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    var screen = document.querySelector('#screen');
+    var btn = document.querySelectorAll('.btn');
+
+    for (item of btn) {
+        item.addEventListener('click', (e) => {
+            btntext = e.target.innerText;
+
+            if (btntext == '×') {
+                btntext = '*';
+            }
+
+            if (btntext == '÷') {
+                btntext = '/';
+            }
+            screen.value += btntext;
+        });
+    }
+
+    function sin() {
+        screen.value = Math.sin(screen.value);
+    }
+
+    function cos() {
+        screen.value = Math.cos(screen.value);
+    }
+
+    function tan() {
+        screen.value =Math.tan(screen.value);
+    }
+
+    function pow() {
+        screen.value = Math.pow(screen.value, 2);
+    }
+
+    function sqrt() {
+        screen.value = Math.sqrt(screen.value, 2);
+    }
+
+    function ln() {
+        screen.value = Math.log(screen.value);
+    }
+
+    function pi() {
+        const value = parseFloat(screen.value);
+        if (!isNaN(value)) {
+            const result = Math.PI* value;
+            screen.value = result.toFixed(4);
+        }
+        else {
+            screen.value = Math.PI.toFixed(5);
+        } 
+    }
+
+    function e() {
+        const value = parseFloat(screen.value);
+        if (!isNaN(value)) {
+            const result = Math.E * value;
+            screen.value = result.toFixed(4);
+        } else {
+            screen.value = Math.E.toFixed(5);
+        }
+    }
+
+    function fact() {
+        var i, num, f;
+        f = 1;
+        num = screen.value;
+        for (i = 1; i <= num; i++) {
+            f = f * i;
+        }
+
+        i = i - 1;
+
+        screen.value = f;
+    }
+  
+    function power() {
+        const value = parseFloat(screen.value);
+        const exponent = parseFloat(prompt("Enter the exponent:"));
+        if (!isNaN(value) && !isNaN(exponent)) {
+            const result = Math.pow(value, exponent);
+            screen.value = result.toFixed(4);
+        } else {
+            screen.value = "Error";
+        }
+    }
+  
+    function reci() {
+        const value = parseFloat(screen.value);
+        if (!isNaN(value) && value !== 0) {
+            const result = 1 / value;
+            screen.value = result.toFixed(4);
+        } else {
+            screen.value = "Error";
+        }
+    }
+  
+    function calculateLogarithm() {
+        const value = parseFloat(screen.value);
+        const base = parseFloat(prompt("Enter the base for the logarithm:"));
+        if (!isNaN(value) && !isNaN(base) && value > 0 && base > 0 && base !== 1) {
+            const result = Math.log(value) / Math.log(base);
+            screen.value = result.toFixed(4);
+        } else {
+            screen.value = "Error";
+        }
+    }
+  
+    function cuberoot() {
+        const value = parseFloat(screen.value);
+        if (!isNaN(value)) {
+            const result = Math.cbrt(value);
+            screen.value = result.toFixed(4);
+        } else {
+            screen.value = "Error";
+        }
+    }
+  
+    function calculateTenToPowerX() {
+        const value = parseFloat(screen.value);
+        if (!isNaN(value)) {
+            const result = Math.pow(10, value);
+            screen.value = result.toFixed(4);
+        } else {
+            screen.value = "Error";
+        }
+    }
+  
+    function calculateYthRoot() {
+        const value = parseFloat(screen.value);
+        const root = parseFloat(prompt("Enter the root value:"));
+        if (!isNaN(value) && !isNaN(root) && value >= 0 && root > 0) {
+            const result = Math.pow(value, 1 / root);
+            screen.value = result.toFixed(4);
+        } else {
+            screen.value = "Error";
+        }
+    }
+  
+    function backspc() {
+        screen.value = screen.value.substr(0, screen.value.length - 1);
+    }
+</script>
+
+</html>
